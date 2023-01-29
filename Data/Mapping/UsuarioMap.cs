@@ -19,33 +19,39 @@ namespace API_LojaVirtual.Data.Mapping
             builder.Property(x => x.Nome)
                 .IsRequired()
                 .HasColumnName("Nome")
-                .HasColumnType("VARCHAR");
+                .HasColumnType("VARCHAR")
+                .HasMaxLength(256);
 
             builder.Property(x => x.Login)
                 .IsRequired()
                 .HasColumnName("Login")
-                .HasColumnType("VARCHAR");
+                .HasColumnType("VARCHAR")
+                .HasMaxLength(256);
 
             builder.Property(x => x.Email)
                 .IsRequired()
                 .HasColumnName("Email")
-                .HasColumnType("VARCHAR");
+                .HasColumnType("VARCHAR")
+                .HasMaxLength(256);
 
             builder.Property(x => x.Senha)
                 .IsRequired()
                 .HasColumnName("Senha")
-                .HasColumnType("VARCHAR");
+                .HasColumnType("VARCHAR")
+                .HasMaxLength(256);
 
             builder.Property(x => x.ChaveVerificacao)
                 .HasColumnName("ChaveVerificacao")
-                .HasColumnType("VARCHAR");
+                .HasColumnType("VARCHAR")
+                .HasMaxLength(256);
 
             builder.Property(x => x.LastToken)
                 .HasColumnName("LastToken")
-                .HasColumnType("VARCHAR");
+                .HasColumnType("VARCHAR")
+                .HasMaxLength(256);
 
             builder.Property(x => x.IsVerification)
-                .HasColumnName("LastToken")
+                .HasColumnName("IsVerification")
                 .HasColumnType("BIT");
 
             builder.Property(x => x.Ativo)

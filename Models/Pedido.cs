@@ -3,9 +3,10 @@
     public class Pedido
     {
         public int Id { get; set; }
-        public Usuario UsuarioId { get; set; }
+        public Usuario Usuario { get; set; }
         public DateTime DataPedido { get; set; }
-        public IList<Produto> Produtos { get; set; }
+
+        public List<Produto> Produtos { get; set; }
 
     }
 }

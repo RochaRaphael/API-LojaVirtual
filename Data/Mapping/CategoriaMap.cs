@@ -19,12 +19,14 @@ namespace API_LojaVirtual.Data.Mapping
             builder.Property(x => x.Nome)
                 .IsRequired()
                 .HasColumnName("Nome")
-                .HasColumnType("VARCHAR");
+                .HasColumnType("VARCHAR")
+                .HasMaxLength(256);
 
             builder.Property(x => x.Url)
                 .IsRequired()
                 .HasColumnName("Url")
-                .HasColumnType("VARCHAR");
+                .HasColumnType("VARCHAR")
+                .HasMaxLength(256);
 
             builder.Property(x => x.Ativo)
                 .IsRequired()

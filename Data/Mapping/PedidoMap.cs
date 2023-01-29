@@ -8,7 +8,7 @@ namespace API_LojaVirtual.Data.Mapping
     {
         public void Configure(EntityTypeBuilder<Pedido> builder)
         {
-            builder.ToTable("Produto");
+            builder.ToTable("Pedido");
 
             builder.HasKey(x => x.Id);
 
@@ -23,10 +23,9 @@ namespace API_LojaVirtual.Data.Mapping
                 .HasDefaultValue(DateTime.Now.ToUniversalTime());
 
             builder
-                .HasOne(x => x.UsuarioId)
+                .HasOne(x => x.Usuario)
                 .WithMany(x => x.Pedidos)
                 .HasConstraintName("FK_Pedido_Usuario");
-
 
             builder
                .HasMany(x => x.Produtos)
@@ -36,11 +35,16 @@ namespace API_LojaVirtual.Data.Mapping
                    pedido => pedido
                        .HasOne<Produto>()
                        .WithMany()
-                       .HasForeignKey("PedidoId"),
-                   tag => tag
+                       .HasForeignKey("PedidoId")
+                       .HasConstraintName("FK_Pedido_ProdutoId"),
+                    produto => produto
                        .HasOne<Pedido>()
                        .WithMany()
-                       .HasForeignKey("ProdutoId"));
+                       .HasForeignKey("ProdutoId")
+                       .HasConstraintName("FK_Produtoo_PedidoId"));
+                    
+
+
         }
     }
 }

@@ -19,12 +19,14 @@ namespace API_LojaVirtual.Data.Mapping
             builder.Property(x => x.Nome)
                 .IsRequired()
                 .HasColumnName("Nome")
-                .HasColumnType("VARCHAR");
+                .HasColumnType("VARCHAR")
+                .HasMaxLength(256);
 
             builder.Property(x => x.Url)
                 .IsRequired()
                 .HasColumnName("Url")
-                .HasColumnType("VARCHAR");
+                .HasColumnType("VARCHAR")
+                .HasMaxLength(256);
 
             builder.Property(x => x.Quantidade)
                 .IsRequired()
@@ -42,9 +44,10 @@ namespace API_LojaVirtual.Data.Mapping
                 .HasColumnType("BIT");
 
             builder
-                .HasOne(x => x.CategoriaId)
+                .HasOne(x => x.Categoria)
                 .WithMany(x => x.Produtos)
-                .HasConstraintName("FK_Pedido_Usuario");
+                .HasConstraintName("FK_Produto_Categoria");
+
         }
     }
 }

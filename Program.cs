@@ -1,18 +1,24 @@
-
-
-
 using API_LojaVirtual.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+ConfigureMvc(builder);
 ConfigureServices(builder);
-//ConfigureMvc(builder);
 
 var app = builder.Build();
 
-
+app.MapControllers();
 
 app.Run();
+
+void ConfigureMvc(WebApplicationBuilder builder)
+{
+    builder.Services.AddControllers()
+    .ConfigureApiBehaviorOptions(options =>
+    {
+        options.SuppressModelStateInvalidFilter = true;
+    });
+}
 
 void ConfigureServices(WebApplicationBuilder builder)
 {
@@ -22,11 +28,3 @@ void ConfigureServices(WebApplicationBuilder builder)
             options.UseSqlServer(connectionString));
 }
 
-//void ConfigureMvc(WebApplicationBuilder builder)
-//{
-//    builder.Services.AddControllers()
-//    .ConfigureApiBehaviorOptions(options =>
-//    {
-//        options.SuppressModelStateInvalidFilter = true;
-//    });
-//}
