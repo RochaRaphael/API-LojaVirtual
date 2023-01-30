@@ -7,7 +7,7 @@ namespace API_LojaVirtual.Controller
     [ApiController]
     public class ProductController : ControllerBase
     {
-        [HttpGet("/banana")]
+        [HttpGet("/teste")]
         public string Get(
             [FromServices] LojaDataContext context)
         {

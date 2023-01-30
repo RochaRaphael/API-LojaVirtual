@@ -1,5 +1,6 @@
 ﻿using API_LojaVirtual.Data;
 using API_LojaVirtual.Models;
+using API_LojaVirtual.Services;
 using API_LojaVirtual.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -7,31 +8,51 @@ using Microsoft.EntityFrameworkCore;
 namespace API_LojaVirtual.Controllers
 {
     [ApiController]
+    [Route("api")]
     public class CategoriaController : ControllerBase
     {
-        [HttpGet("v1/categorias")]
-        public async Task<IActionResult> GetByIdAsync(
-            [FromServices] LojaDataContext context)
-        {
+        private readonly CategoriaService categoriaService;
 
+        public CategoriaController(CategoriaService categoriaService)
+        {
+            this.categoriaService = categoriaService;
+        }
+
+        public CategoriaService GetCategoriaService()
+        {
+            return categoriaService;
+        }
+
+        [HttpGet("v1/categorias")]
+        public async Task<IActionResult> GetValidosAsync()
+        {
             try
             {
-                var produto = await context
-                    .Produtos
-                    .AsNoTracking()
-                    .Include(x => x.Categoria)
-                    .Where(x => x.Quantidade > 0 && x.Ativo == true)
-                    .Select(x => new CategoriasValidasViewModel
-                    {
-                        Nome = x.Categoria.Nome,
-                    })
-                    .Distinct()
-                    .ToListAsync();
-                return Ok(new ResultadoViewModel<List<CategoriasValidasViewModel>>(produto));
+                return Ok(new ResultadoViewModel<List<MostrarCategoriaViewModel>>(
+                    await categoriaService
+                    .ListaCategoriasTemProdutos()));
             }
             catch
             {
-                return StatusCode(500, new ResultadoViewModel<List<Categoria>>("05X04 - Falha interna no servidor"));
+                return StatusCode(500, new ResultadoViewModel<List<Produto>>("05X04 - Falha interna no servidor"));
+            }
+        }
+
+        [HttpGet("v1/categorias/{url}")]
+        public async Task<IActionResult> GetByUrlAsync(
+            [FromRoute] string url)
+        {
+            try
+            {
+                var resultado = await categoriaService.PesquisaProdutosUrlCategorias(url);
+                if (resultado == null)
+                    return StatusCode(204, new ResultadoViewModel<List<Categoria>>("A categoria não está disponível"));
+
+                return Ok(new ResultadoViewModel<List<ProdutoPorCategoriaViewModel>>(resultado));
+            }
+            catch
+            {
+                return StatusCode(500, new ResultadoViewModel<List<Produto>>("08X12 - Falha interna no servidor"));
             }
         }
     }

@@ -1,5 +1,8 @@
 using API_LojaVirtual.Data;
+using API_LojaVirtual.Repositories;
+using API_LojaVirtual.Services;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 ConfigureMvc(builder);
@@ -17,7 +20,12 @@ void ConfigureMvc(WebApplicationBuilder builder)
     .ConfigureApiBehaviorOptions(options =>
     {
         options.SuppressModelStateInvalidFilter = true;
-    });
+    })
+    .AddJsonOptions(x =>
+    {
+        x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+        x.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault;
+    }); ;
 }
 
 void ConfigureServices(WebApplicationBuilder builder)
@@ -26,5 +34,9 @@ void ConfigureServices(WebApplicationBuilder builder)
     builder.Services.AddDbContext<LojaDataContext>(
         options =>
             options.UseSqlServer(connectionString));
+
+    builder.Services.AddScoped<CategoriaRepositorio>();
+    builder.Services.AddScoped<CategoriaService>();
 }
+
 
