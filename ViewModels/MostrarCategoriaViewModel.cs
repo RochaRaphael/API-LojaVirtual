@@ -2,9 +2,8 @@
 
 namespace API_LojaVirtual.ViewModels
 {
-    public class MostrarCategoriaViewModel
+    public class CategoriasValidasViewModel
     {
         public string Nome { get; set; }
-        public List<Produto> Produto { get; set; }
     }
 }
