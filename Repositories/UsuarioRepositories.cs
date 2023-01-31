@@ -3,11 +3,11 @@ using API_LojaVirtual.ViewModels;
 
 namespace API_LojaVirtual.Repositories
 {
-    public class UsuarioRepositorio
+    public class UsuarioRepositories
     {
         private readonly LojaDataContext context;
 
-        public UsuarioRepositorio(LojaDataContext context)
+        public UsuarioRepositories(LojaDataContext context)
         {
             this.context = context;
         }

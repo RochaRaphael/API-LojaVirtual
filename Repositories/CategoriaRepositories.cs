@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API_LojaVirtual.Repositories
 {
-    public class CategoriaRepositorio
+    public class CategoriaRepositories
     {
         private readonly LojaDataContext context;
 
-        public CategoriaRepositorio(LojaDataContext context)
+        public CategoriaRepositories(LojaDataContext context)
         {
             this.context = context;
         }

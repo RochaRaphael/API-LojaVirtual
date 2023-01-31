@@ -5,9 +5,9 @@ namespace API_LojaVirtual.Services
 {
     public class ProdutoService
     {
-        private readonly ProdutoRepositorio produtoRepositorio;
+        private readonly ProdutoRepositories produtoRepositorio;
 
-        public ProdutoService(ProdutoRepositorio produtoRepositorio)
+        public ProdutoService(ProdutoRepositories produtoRepositorio)
         {
             this.produtoRepositorio = produtoRepositorio;
         }

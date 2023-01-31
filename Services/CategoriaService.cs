@@ -6,9 +6,9 @@ namespace API_LojaVirtual.Services
 {
     public class CategoriaService
     {
-        private readonly CategoriaRepositorio categoriaRepositorio;
+        private readonly CategoriaRepositories categoriaRepositorio;
 
-        public CategoriaService(CategoriaRepositorio categoriaRepositorio)
+        public CategoriaService(CategoriaRepositories categoriaRepositorio)
         {
             this.categoriaRepositorio = categoriaRepositorio;
         }

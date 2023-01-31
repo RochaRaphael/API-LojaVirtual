@@ -4,10 +4,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API_LojaVirtual.Repositories
 {
-    public class ProdutoRepositorio
+    public class ProdutoRepositories
     {
         private readonly LojaDataContext context;
-        public ProdutoRepositorio(LojaDataContext context)
+        public ProdutoRepositories(LojaDataContext context)
         {
             this.context = context;
         }
