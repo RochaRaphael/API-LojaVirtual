@@ -32,36 +32,5 @@ namespace API_LojaVirtual.Controllers
                 return StatusCode(500, new ResultadoViewModel<string>("34X44 - Falha interna no servidor"));
             }
         }
-
-        //[HttpPost("v1/signup")]
-        //public async Task<IActionResult> Post(
-        //    [FromServices] LojaDataContext context)
-        //{
-        //    var user = new Usuario
-        //    {
-        //        Nome = "Raphael",
-        //        Login = "Teste",
-        //        Email = "rocharaphael@gmail.com",
-        //        Senha = "123",
-        //        ChaveVerificacao = "Testeee",
-        //        LastToken = "Testando",
-        //        IsVerification = false,
-        //        Ativo = true,
-        //        Excluido = false
-        //    };
-
-        //    try
-        //    {
-        //        await context.Usuarios.AddAsync(user);
-        //        await context.SaveChangesAsync();
-
-        //        return Ok("DEU CERTO");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //}
-
     }
 }
