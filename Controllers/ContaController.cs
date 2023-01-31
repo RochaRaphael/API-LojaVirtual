@@ -8,8 +8,11 @@ using Microsoft.EntityFrameworkCore;
 namespace API_LojaVirtual.Controllers
 {
     [ApiController]
+    [Route("api")]
     public class ContaController : ControllerBase
     {
+        //Passar para o service
+
         [HttpPost("v1/conta")]
         public async Task<IActionResult> Post(
             [FromBody] NovoUsuarioViewModel model,

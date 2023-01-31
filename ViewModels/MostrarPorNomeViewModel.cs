@@ -2,7 +2,7 @@
 
 namespace API_LojaVirtual.ViewModels
 {
-    public class MostrarCategoriaViewModel
+    public class MostrarPorNomeViewModel
     {
         public string Nome { get; set; }
     }

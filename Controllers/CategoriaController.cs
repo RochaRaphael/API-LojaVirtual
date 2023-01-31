@@ -1,9 +1,7 @@
-﻿using API_LojaVirtual.Data;
-using API_LojaVirtual.Models;
+﻿using API_LojaVirtual.Models;
 using API_LojaVirtual.Services;
 using API_LojaVirtual.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace API_LojaVirtual.Controllers
 {
@@ -12,15 +10,9 @@ namespace API_LojaVirtual.Controllers
     public class CategoriaController : ControllerBase
     {
         private readonly CategoriaService categoriaService;
-
         public CategoriaController(CategoriaService categoriaService)
         {
             this.categoriaService = categoriaService;
-        }
-
-        public CategoriaService GetCategoriaService()
-        {
-            return categoriaService;
         }
 
         [HttpGet("v1/categorias")]
@@ -28,7 +20,7 @@ namespace API_LojaVirtual.Controllers
         {
             try
             {
-                return Ok(new ResultadoViewModel<List<MostrarCategoriaViewModel>>(
+                return Ok(new ResultadoViewModel<List<MostrarPorNomeViewModel>>(
                     await categoriaService
                     .ListaCategoriasTemProdutos()));
             }
@@ -48,7 +40,7 @@ namespace API_LojaVirtual.Controllers
                 if (resultado == null)
                     return StatusCode(204, new ResultadoViewModel<List<Categoria>>("A categoria não está disponível"));
 
-                return Ok(new ResultadoViewModel<List<ProdutoPorCategoriaViewModel>>(resultado));
+                return Ok(new ResultadoViewModel<List<ProdutoViewModel>>(resultado));
             }
             catch
             {

@@ -15,14 +15,14 @@ namespace API_LojaVirtual.Repositories
             this.context = context;
         }
 
-        public async Task<List<MostrarCategoriaViewModel>> ListaCategoriasTemProdutos()
+        public async Task<List<MostrarPorNomeViewModel>> ListaCategoriasTemProdutos()
         {
             var produto = await context
               .Produtos
               .AsNoTracking()
               .Include(x => x.Categoria)
               .Where(x => x.Quantidade > 0 && x.Ativo == true)
-              .Select(x => new MostrarCategoriaViewModel
+              .Select(x => new MostrarPorNomeViewModel
               {
                   Nome = x.Categoria.Nome,
               })
@@ -32,7 +32,7 @@ namespace API_LojaVirtual.Repositories
             return produto;
         }
 
-        public async Task<List<ProdutoPorCategoriaViewModel>> PesquisaProdutosUrlCategorias(string url)
+        public async Task<List<ProdutoViewModel>> PesquisaProdutosUrlCategorias(string url)
         {
             var categoria = await context
                 .Categorias
@@ -50,7 +50,7 @@ namespace API_LojaVirtual.Repositories
                 .AsNoTracking()
                 .Include(x => x.Categoria)
                 .Where(x => x.Categoria.Url == url)
-                .Select(x => new ProdutoPorCategoriaViewModel
+                .Select(x => new ProdutoViewModel
                 {
                     Nome = x.Nome,
                     Url = x.Url,
@@ -60,8 +60,10 @@ namespace API_LojaVirtual.Repositories
                 }
                 )
                 .ToListAsync();
-
+            
             return produtosDessaCategoia;
+
         }
+        
     }
 }

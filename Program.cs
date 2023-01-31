@@ -37,6 +37,9 @@ void ConfigureServices(WebApplicationBuilder builder)
 
     builder.Services.AddScoped<CategoriaRepositorio>();
     builder.Services.AddScoped<CategoriaService>();
+    builder.Services.AddScoped<ProdutoRepositorio>();
+    builder.Services.AddScoped<ProdutoService>();
+    
 }
 
 
