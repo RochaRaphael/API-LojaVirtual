@@ -1,4 +1,5 @@
-﻿using API_LojaVirtual.Services;
+﻿using API_LojaVirtual.Extensions;
+using API_LojaVirtual.Services;
 using API_LojaVirtual.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,6 +19,8 @@ namespace API_LojaVirtual.Controllers
         public async Task<IActionResult> GetByUrlAsync(
             [FromRoute] string url)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(new ResultadoViewModel<string>(ModelState.GetErrors()));
             try
             {
                 var produto = await produtoService.PesquisaProdutoUrl(url);

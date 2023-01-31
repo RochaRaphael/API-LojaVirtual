@@ -1,4 +1,5 @@
-﻿using API_LojaVirtual.Models;
+﻿using API_LojaVirtual.Extensions;
+using API_LojaVirtual.Models;
 using API_LojaVirtual.Services;
 using API_LojaVirtual.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -18,6 +19,8 @@ namespace API_LojaVirtual.Controllers
         [HttpGet("v1/categorias")]
         public async Task<IActionResult> GetValidosAsync()
         {
+            if (!ModelState.IsValid)
+                return BadRequest(new ResultadoViewModel<string>(ModelState.GetErrors()));
             try
             {
                 return Ok(new ResultadoViewModel<List<MostrarPorNomeViewModel>>(
@@ -34,6 +37,8 @@ namespace API_LojaVirtual.Controllers
         public async Task<IActionResult> GetByUrlAsync(
             [FromRoute] string url)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(new ResultadoViewModel<string>(ModelState.GetErrors()));
             try
             {
                 var resultado = await categoriaService.PesquisaProdutosUrlCategorias(url);
