@@ -2,7 +2,9 @@ using API_LojaVirtual;
 using API_LojaVirtual.Data;
 using API_LojaVirtual.Repositories;
 using API_LojaVirtual.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Text.Json.Serialization;
 
@@ -70,7 +72,9 @@ void ConfigureServices(WebApplicationBuilder builder)
     builder.Services.AddScoped<CategoriaService>();
     builder.Services.AddScoped<ProdutoRepositories>();
     builder.Services.AddScoped<ProdutoService>();
-    
+    builder.Services.AddScoped<UsuarioRepositories>();
+    builder.Services.AddScoped<UsuarioService>();
+
 }
 
 

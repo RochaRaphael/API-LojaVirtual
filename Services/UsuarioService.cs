@@ -1,4 +1,5 @@
-﻿using API_LojaVirtual.Repositories;
+﻿using API_LojaVirtual.Models;
+using API_LojaVirtual.Repositories;
 using API_LojaVirtual.ViewModels;
 using System.Security.Cryptography;
 using System.Text;
@@ -14,11 +15,11 @@ namespace API_LojaVirtual.Services
             this.usuarioRepositorio = usuarioRepositorio;
         }
 
-        public async Task<bool> CadastrarUsuario(NovoUsuarioViewModel model)
+        public async Task CadastrarUsuario(Usuario novoUsuario)
         {
             try
             { 
-                return await usuarioRepositorio.CadastrarUsuario(model);
+                await usuarioRepositorio.CadastrarUsuario(novoUsuario);
             }
             catch (Exception ex)
             {

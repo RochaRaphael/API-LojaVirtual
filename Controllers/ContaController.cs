@@ -13,12 +13,10 @@ namespace API_LojaVirtual.Controllers
     public class ContaController : ControllerBase
     {
         private readonly UsuarioService usuarioService;
-        private readonly TokenService tokenService;
 
-        public ContaController(UsuarioService usuarioService, TokenService tokenService)
+        public ContaController(UsuarioService usuarioService)
         {
             this.usuarioService = usuarioService;
-            this.tokenService = tokenService;
         } 
 
         [HttpPost("v1/Cadastro")]
@@ -28,12 +26,21 @@ namespace API_LojaVirtual.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest(new ResultadoViewModel<string>(ModelState.GetErrors()));
-            await usuarioService.CadastrarUsuario(model);
 
-            if (await usuarioService.CadastrarUsuario(model))
-                return Ok(new ResultadoViewModel<string>("Usuario cadastrado com sucesso!"));
+            var novoUsuario = new Usuario
+            {
+                Nome = model.Nome,
+                Login = model.Login,
+                Email = model.Email,
+                Senha = model.Senha,
+                Ativo = true,
+                Excluido = false
 
-            return Ok(new ResultadoViewModel<string>("Usurio já cadastrado"));
+            };
+
+            await usuarioService.CadastrarUsuario(novoUsuario);
+
+            return Ok(new ResultadoViewModel<Usuario>(novoUsuario));
         }
 
         [HttpPost("v1/Login")]

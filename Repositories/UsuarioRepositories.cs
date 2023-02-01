@@ -19,33 +19,18 @@ namespace API_LojaVirtual.Repositories
             this.tokenService = tokenService;
         }
 
-        public async Task<bool> CadastrarUsuario(NovoUsuarioViewModel model)
+        public async Task CadastrarUsuario(Usuario novoUsuario)
         {
-            var login = await context
-                 .Usuarios
-                 .FirstOrDefaultAsync(x => x.Login == model.Login);
-       
-            if (login == null)
+            var jaCadastrado = await context
+                .Usuarios
+                .FirstOrDefaultAsync(x => x.Login == novoUsuario.Login);
+            if (jaCadastrado == null)
             {
-                var novoUsuario = new Usuario
-                {
-                    Nome = model.Nome,
-                    Login = model.Login,
-                    Email = model.Email,
-                    Senha = GeraHash(model.Senha),
-                    Ativo = true,
-                    Excluido = false
-                };
-
                 await context.Usuarios.AddAsync(novoUsuario);
                 await context.SaveChangesAsync();
-
-                return true;
             }
-            else
-            {
-                return false;
-            }   
+
+
         }
 
         public async Task<bool> LogarUsuario(NovoUsuarioViewModel model)
