@@ -15,11 +15,26 @@ namespace API_LojaVirtual.Services
             this.usuarioRepositorio = usuarioRepositorio;
         }
 
-        public async Task CadastrarUsuario(Usuario novoUsuario)
+        public async Task<RespostaViewModel> CadastrarUsuario(NovoUsuarioViewModel usuario)
         {
             try
-            { 
-                await usuarioRepositorio.CadastrarUsuario(novoUsuario);
+            {
+                if (await usuarioRepositorio.UsuarioExisteAsync(usuario.Login))
+                    return new RespostaViewModel { Sucesso = false, Mensagem = "Usuario ´já existe!" };
+
+
+                var novoUsuario = new Usuario
+                {
+                    Nome = usuario.Nome,
+                    Login = usuario.Login,
+                    Email = usuario.Email,
+                    Senha = usuario.Senha,
+                    Ativo = true,
+                    Excluido = false
+
+                };
+                await usuarioRepositorio.CadastrarUsuarioAsync(novoUsuario);
+                return new RespostaViewModel { Sucesso = true, Mensagem = "Usuario criado com sucesso!" };
             }
             catch (Exception ex)
             {

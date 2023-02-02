@@ -19,7 +19,7 @@ namespace API_LojaVirtual.Repositories
             this.tokenService = tokenService;
         }
 
-        public async Task CadastrarUsuario(Usuario novoUsuario)
+        public async Task CadastrarUsuarioAsync(Usuario novoUsuario)
         {
             var jaCadastrado = await context
                 .Usuarios
@@ -29,9 +29,12 @@ namespace API_LojaVirtual.Repositories
                 await context.Usuarios.AddAsync(novoUsuario);
                 await context.SaveChangesAsync();
             }
-
-
         }
+        public async Task<bool> UsuarioExisteAsync(string login)
+        {
+            return await Task.FromResult(context.Usuarios.Any(x => x.Login == login));
+        }
+
 
         public async Task<bool> LogarUsuario(NovoUsuarioViewModel model)
         {

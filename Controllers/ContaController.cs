@@ -21,26 +21,16 @@ namespace API_LojaVirtual.Controllers
 
         [HttpPost("v1/Cadastro")]
         public async Task<IActionResult> PostCadastrarUsuario(
-            [FromBody] NovoUsuarioViewModel model,
-            [FromServices] LojaDataContext context)
+            [FromBody] NovoUsuarioViewModel model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(new ResultadoViewModel<string>(ModelState.GetErrors()));
 
-            var novoUsuario = new Usuario
-            {
-                Nome = model.Nome,
-                Login = model.Login,
-                Email = model.Email,
-                Senha = model.Senha,
-                Ativo = true,
-                Excluido = false
+           var novoUsuario = await usuarioService.CadastrarUsuario(model);
+            if(novoUsuario.Sucesso)
+                return Ok(new ResultadoViewModel<Usuario>(novoUsuario.Mensagem));
 
-            };
-
-            await usuarioService.CadastrarUsuario(novoUsuario);
-
-            return Ok(new ResultadoViewModel<Usuario>(novoUsuario));
+            return StatusCode(401, new ResultadoViewModel<string>(novoUsuario.Mensagem));
         }
 
         [HttpPost("v1/Login")]
