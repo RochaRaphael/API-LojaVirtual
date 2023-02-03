@@ -13,12 +13,11 @@ namespace API_LojaVirtual.Services
             this.categoriaRepositorio = categoriaRepositorio;
         }
 
-        public async Task<List<MostrarPorNomeViewModel>> ListaCategoriasTemProdutos()
+        public async Task<List<MostrarPorNomeViewModel>> ListaCategoriasTemProdutosAsync()
         {
             try
             {
-                //A regra de negocio foi aplicada no reporitorio por exigir um filtro no acesso ao banco
-                return await categoriaRepositorio.ListaCategoriasTemProdutos();
+                return await categoriaRepositorio.ListaCategoriasTemProdutosAsync();
             }
             catch (Exception ex)
             {
@@ -26,11 +25,11 @@ namespace API_LojaVirtual.Services
             }
         }
 
-        public async Task<List<ProdutoViewModel>> PesquisaProdutosUrlCategorias(string url)
+        public async Task<List<ProdutoViewModel>> PesquisaProdutosUrlCategoriasAsync(string url)
         {
             try
             {
-                return await categoriaRepositorio.PesquisaProdutosUrlCategorias(url);
+                return await categoriaRepositorio.PesquisaProdutosUrlCategoriasAsync(url);
             }
             catch (Exception ex)
             {

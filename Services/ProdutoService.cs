@@ -12,14 +12,14 @@ namespace API_LojaVirtual.Services
             this.produtoRepositorio = produtoRepositorio;
         }
 
-        public async Task<ProdutoViewModel> PesquisaProdutoUrl(string url)
+        public async Task<ProdutoViewModel> PesquisaProdutoUrlAsync(string url)
         {
-            var produto = await produtoRepositorio.PesquisaProdutoUrl(url);
+            var produto = await produtoRepositorio.PesquisaProdutoUrlAsync(url);
 
             if (produto.Ativo == false)
                 return null;
 
-            return await produtoRepositorio.PesquisaProdutoUrl(url); ;
+            return await produtoRepositorio.PesquisaProdutoUrlAsync(url); ;
         }
     }
 }

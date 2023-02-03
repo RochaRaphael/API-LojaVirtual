@@ -15,7 +15,7 @@ namespace API_LojaVirtual.Repositories
             this.context = context;
         }
 
-        public async Task<List<MostrarPorNomeViewModel>> ListaCategoriasTemProdutos()
+        public async Task<List<MostrarPorNomeViewModel>> ListaCategoriasTemProdutosAsync()
         {
             var produto = await context
               .Produtos
@@ -32,17 +32,15 @@ namespace API_LojaVirtual.Repositories
             return produto;
         }
 
-        public async Task<List<ProdutoViewModel>> PesquisaProdutosUrlCategorias(string url)
+        public async Task<List<ProdutoViewModel>> PesquisaProdutosUrlCategoriasAsync(string url)
         {
             var categoria = await context
                 .Categorias
                 .AsNoTracking()
                 .Include(x => x.Produtos)
                 .FirstOrDefaultAsync(x => x.Url == url);
-            if (categoria == null)
-                return null;
-
-            if (categoria.Ativo == false)
+            
+            if (categoria == null || categoria.Ativo == false)
                 return null;
 
             var produtosDessaCategoia = await context

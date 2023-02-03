@@ -12,7 +12,7 @@ namespace API_LojaVirtual.Repositories
             this.context = context;
         }
 
-        public async Task<ProdutoViewModel> PesquisaProdutoUrl(string url)
+        public async Task<ProdutoViewModel> PesquisaProdutoUrlAsync(string url)
         {
             var x = await context
                .Produtos

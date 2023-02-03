@@ -25,7 +25,7 @@ namespace API_LojaVirtual.Controllers
             {
                 return Ok(new ResultadoViewModel<List<MostrarPorNomeViewModel>>(
                     await categoriaService
-                    .ListaCategoriasTemProdutos()));
+                    .ListaCategoriasTemProdutosAsync()));
             }
             catch
             {
@@ -41,7 +41,7 @@ namespace API_LojaVirtual.Controllers
                 return BadRequest(new ResultadoViewModel<string>(ModelState.GetErrors()));
             try
             {
-                var resultado = await categoriaService.PesquisaProdutosUrlCategorias(url);
+                var resultado = await categoriaService.PesquisaProdutosUrlCategoriasAsync(url);
                 if (resultado == null)
                     return StatusCode(204, new ResultadoViewModel<List<Categoria>>("A categoria não está disponível"));
 

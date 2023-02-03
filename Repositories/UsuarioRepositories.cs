@@ -21,14 +21,8 @@ namespace API_LojaVirtual.Repositories
 
         public async Task CadastrarUsuarioAsync(Usuario novoUsuario)
         {
-            var jaCadastrado = await context
-                .Usuarios
-                .FirstOrDefaultAsync(x => x.Login == novoUsuario.Login);
-            if (jaCadastrado == null)
-            {
-                await context.Usuarios.AddAsync(novoUsuario);
-                await context.SaveChangesAsync();
-            }
+            await context.Usuarios.AddAsync(novoUsuario);
+            await context.SaveChangesAsync();
         }
         public async Task<bool> UsuarioExisteAsync(string login)
         {
@@ -36,19 +30,13 @@ namespace API_LojaVirtual.Repositories
         }
 
 
-        public async Task<bool> LogarUsuario(NovoUsuarioViewModel model)
+        public async Task<bool> LogarUsuarioAsync(LoginUsuarioViewModel model)
         {
             var login = await context
                  .Usuarios
-                 .FirstOrDefaultAsync(x => x.Login == model.Login);
+                 .FirstOrDefaultAsync(x => x.Login == model.Login && x.Senha == model.Senha);
 
-            var usuarioLogin = new NovoUsuarioViewModel
-            {
-                Email = model.Email,
-                Senha = GeraHash(model.Senha)
-            };
-
-            if (usuarioLogin != null && usuarioLogin.Senha == login.Senha)
+            if (login != null)
             {
                 login.LastToken = tokenService.GenerateToken(login);
                 return true;
@@ -60,18 +48,24 @@ namespace API_LojaVirtual.Repositories
                 
         }
 
-        public static string GeraHash(string senha)
+        public async Task<bool> VerificarUsuarioAsync(VerificaUsuarioViewModel usuario)
         {
-            var md5 = MD5.Create();
-            byte[] bytes = System.Text.Encoding.ASCII.GetBytes(senha);
-            byte[] hash = md5.ComputeHash(bytes);
+            var verificado = await context
+                 .Usuarios
+                 .FirstOrDefaultAsync(x => x.Email == usuario.Email && x.ChaveVerificacao == usuario.ChaveVerificacao);
 
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < hash.Length; i++)
+
+            if(verificado != null)
             {
-                sb.Append(hash[i].ToString("X2"));
+                verificado.IsVerification = true;
+                context.Usuarios.Update(verificado);
+                await context.SaveChangesAsync();
+
+                return true;
             }
-            return sb.ToString();
+                
+            else
+                return false;
         }
 
     }

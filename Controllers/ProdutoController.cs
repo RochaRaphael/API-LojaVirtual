@@ -16,14 +16,14 @@ namespace API_LojaVirtual.Controllers
         }
 
         [HttpGet("v1/produto/{url}")]
-        public async Task<IActionResult> GetByUrlAsync(
+        public async Task<IActionResult> GetFiltrarPorUrlAsync(
             [FromRoute] string url)
         {
             if (!ModelState.IsValid)
                 return BadRequest(new ResultadoViewModel<string>(ModelState.GetErrors()));
             try
             {
-                var produto = await produtoService.PesquisaProdutoUrl(url);
+                var produto = await produtoService.PesquisaProdutoUrlAsync(url);
 
                 if (produto != null)
                     return Ok(new ResultadoViewModel<dynamic>(produto));

@@ -1,8 +1,8 @@
 ﻿namespace API_LojaVirtual.ViewModels
 {
-    public class LoginUsuarioViewModels
+    public class VerificaUsuarioViewModel
     {
         public string Email { get; set; }
-        public string Senha { get; set; }
+        public string ChaveVerificacao { get; set; }
     }
 }
