@@ -77,6 +77,8 @@ void ConfigureServices(WebApplicationBuilder builder)
     builder.Services.AddScoped<ProdutoService>();
     builder.Services.AddScoped<UsuarioRepositories>();
     builder.Services.AddScoped<UsuarioService>();
+    builder.Services.AddScoped<PedidoRepositories>();
+    builder.Services.AddScoped<PedidoService>();
 
 }
 

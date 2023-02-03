@@ -1,10 +1,8 @@
-﻿using API_LojaVirtual.Data;
-using API_LojaVirtual.Extensions;
-using API_LojaVirtual.Models;
+﻿using API_LojaVirtual.Extensions;
 using API_LojaVirtual.Services;
 using API_LojaVirtual.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+
 
 namespace API_LojaVirtual.Controllers
 {
@@ -44,9 +42,9 @@ namespace API_LojaVirtual.Controllers
             {
                 var logado = await usuarioService.LogarUsuarioAsync(model);
             if (logado)
-                return Ok(new ResultadoViewModel<bool>(logado));
-            else
-                return StatusCode(401, new ResultadoViewModel<string>("Usuário ou senha inválidos"));
+                    return Ok(new ResultadoViewModel<bool>(logado));
+                else
+                    return StatusCode(401, new ResultadoViewModel<string>("Usuário ou senha inválidos"));
 
             
             }

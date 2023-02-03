@@ -47,7 +47,7 @@ namespace API_LojaVirtual.Data.Mapping
 
             builder.Property(x => x.LastToken)
                 .HasColumnName("LastToken")
-                .HasColumnType("VARCHAR")
+                .HasColumnType("NVARCHAR(MAX)")
                 .HasMaxLength(256);
 
             builder.Property(x => x.IsVerification)

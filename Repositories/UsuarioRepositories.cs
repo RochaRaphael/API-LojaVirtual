@@ -38,14 +38,16 @@ namespace API_LojaVirtual.Repositories
 
             if (login != null)
             {
-                login.LastToken = tokenService.GenerateToken(login);
+                login.LastToken = tokenService.GenerateToken(login).ToString();
+                context.Usuarios.Update(login);
+                await context.SaveChangesAsync();
                 return true;
             }
             else
             {
                 return false;
             }
-                
+
         }
 
         public async Task<bool> VerificarUsuarioAsync(VerificaUsuarioViewModel usuario)
@@ -55,7 +57,7 @@ namespace API_LojaVirtual.Repositories
                  .FirstOrDefaultAsync(x => x.Email == usuario.Email && x.ChaveVerificacao == usuario.ChaveVerificacao);
 
 
-            if(verificado != null)
+            if (verificado != null)
             {
                 verificado.IsVerification = true;
                 context.Usuarios.Update(verificado);
@@ -63,7 +65,7 @@ namespace API_LojaVirtual.Repositories
 
                 return true;
             }
-                
+
             else
                 return false;
         }
