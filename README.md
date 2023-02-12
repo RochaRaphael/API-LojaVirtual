@@ -1,6 +1,6 @@
 # API-LojaVirtual
 
-API feita com a ideia de melhorar as habilidades usando repository e service.
+API feita com a ideia de melhorar as habilidades usando repository, service e acesso ao banco de dados com Entity.
 
 ----------------------
 
